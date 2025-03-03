@@ -1,0 +1,19 @@
+# Build folders
+build/
+bin/
+obj/
+
+# Compiled binaries
+*.exe
+*.o
+*.out
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# VSCode settings folder
+.vscode/ 
