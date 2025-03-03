@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iomanip>
+#include <algorithm>
 
 void load_from_file(std::array<int, memorySize>& memory, const std::string& filename) {
     constexpr int sentinel{-99999}; // terminates reading after -99999
@@ -12,7 +13,7 @@ void load_from_file(std::array<int, memorySize>& memory, const std::string& file
     std::ifstream inputFile(filename);
     if(!inputFile) {
         // throw runtime_error exception with string "invalid_input"
-        throw std::runtime_error("Error: this file has an invalid_input"); 
+        throw std::runtime_error("Error: could not open input file: " + filename + " likely due to an invalid_input"); 
     }
 
     while(std::getline(inputFile, line)) {
@@ -20,11 +21,20 @@ void load_from_file(std::array<int, memorySize>& memory, const std::string& file
         if(instruction == sentinel) {
             break; 
         }
-
         // Check if the instruction is valid using the validWord function
         // If the instruction is valid, store it in memory at position 'i' and increment 'i'
         // If the instruction is invalid, throw runtime error with the message "invalid_input"
+        if (!validWord(instruction)) {
+            throw std::runtime_error("Error: instruction is an invalid_input"); 
+        }
+
+        if (i >= memorySize) {
+            throw std::runtime_error("Error: ran out of memory"); 
+        }
+
+        memory[i++] = instruction; 
     }
+
     inputFile.close(); 
 }
 
@@ -65,6 +75,10 @@ Command opCodeToCommand(size_t opCode) {
             break; 
         case 43:
             return Command::halt; 
+            break; 
+        default:
+            // return Command::halt; 
+            throw std::runtime_error("Error: opCodeToCommand invalid_input"); 
             break; 
     } 
 }
@@ -141,6 +155,24 @@ void execute(std::array<int, memorySize>& memory,
 
 bool validWord(int word) {
     // ToDo: Complete this
+
+    std::vector<size_t> validOpCodes = {10, 11, 20, 21, 30, 31, 32, 33, 40, 41, 42, 43};  
+    if (word < -9999 || word > 9999) {
+        return false; 
+    }
+    
+    size_t wordOpCode = word / 100; // divide to get the first two digits of the input word 
+    size_t wordOperand = word % 100;  // remainder to get the last two digits of the input word
+
+    if (std::find(validOpCodes.begin(), validOpCodes.end(), wordOpCode) == validOpCodes.end()) {
+        return false;
+    }
+
+    if (wordOperand < 0 || wordOperand > 99) {
+        return false;
+    }
+
+    return true; 
 }
 
 void dump(std::array<int, memorySize>& memory, int accumulator,
