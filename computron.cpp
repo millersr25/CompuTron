@@ -191,12 +191,12 @@ bool validWord(int word) {
         return false; 
     }
 
-    size_t wordOpCode = std::abs(word) / 100; // divide to get the first two digits of the input word 
-    // size_t wordOperand = absWord % 100;  // remainder to get the last two digits of the input word
+    // size_t wordOpCode = std::abs(word) / 100; // divide to get the first two digits of the input word 
+    // // size_t wordOperand = absWord % 100;  // remainder to get the last two digits of the input word
 
-    if (std::find(validOpCodes.begin(), validOpCodes.end(), wordOpCode) == validOpCodes.end()) {
-        return false;
-    }
+    // if (std::find(validOpCodes.begin(), validOpCodes.end(), wordOpCode) == validOpCodes.end()) {
+    //     return false;
+    // }
 
     return true; 
 }
