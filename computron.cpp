@@ -205,18 +205,14 @@ bool validWord(int word) {
         return false; 
     }
 
-    int absWord = std::abs(word); 
+    // int absWord = std::abs(word); 
     
-    size_t wordOpCode = absWord / 100; // divide to get the first two digits of the input word 
-    size_t wordOperand = absWord % 100;  // remainder to get the last two digits of the input word
+    // size_t wordOpCode = absWord / 100; // divide to get the first two digits of the input word 
+    // size_t wordOperand = absWord % 100;  // remainder to get the last two digits of the input word
 
-    if (std::find(validOpCodes.begin(), validOpCodes.end(), wordOpCode) == validOpCodes.end()) {
-        return false;
-    }
-
-    if (wordOperand < 0 || wordOperand > 99) {
-        return false;
-    }
+    // if (std::find(validOpCodes.begin(), validOpCodes.end(), wordOpCode) == validOpCodes.end()) {
+    //     return false;
+    // }
 
     return true; 
 }
