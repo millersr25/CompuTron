@@ -23,7 +23,6 @@ void load_from_file(std::array<int, memorySize>& memory, const std::string& file
 
             // // Temporary Debug output
             // std::cout << "Read instruction: " << instruction << std::endl;
-
             if(instruction == sentinel) {
                 break; 
             }
@@ -95,8 +94,8 @@ void execute(std::array<int, memorySize>& memory,
 
         switch(int word{}; opCodeToCommand(*opCodePtr)) {
             case Command::read:
-                // Assign the value of 'word' to the memory location pointed to by 'opPtr'
-                // Increment the instruction counter (icPtr) to point to the next instruction
+            // Assign the value of 'word' to the memory location pointed to by 'opPtr'
+            // Increment the instruction counter (icPtr) to point to the next instruction
                 word = inputs[inputIndex]; 
                 memory[*opPtr] = word; 
                 inputIndex++; 
@@ -186,17 +185,9 @@ void execute(std::array<int, memorySize>& memory,
 }
 
 bool validWord(int word) {
-    std::vector<size_t> validOpCodes = {10, 11, 20, 21, 30, 31, 32, 33, 40, 41, 42, 43};  
     if (word < -9999 || word > 9999) {
         return false; 
     }
-
-    // size_t wordOpCode = std::abs(word) / 100; // divide to get the first two digits of the input word 
-    // // size_t wordOperand = absWord % 100;  // remainder to get the last two digits of the input word
-
-    // if (std::find(validOpCodes.begin(), validOpCodes.end(), wordOpCode) == validOpCodes.end()) {
-    //     return false;
-    // }
 
     return true; 
 }
@@ -212,6 +203,19 @@ void dump(std::array<int, memorySize>& memory, int accumulator,
               << "operationCode        " << operationCode << "\n"
               << "operand              " << operand << "\n\n"; 
 
+    std::cout << "Memory:" << "\n"; 
+    std::cout << "    0    1    2    3    4    5    6    7    8    9" << "\n"; 
+
+    for (size_t i = 0; i < memorySize; i += 10) {
+        for (size_t j = 0; j < 10 && (i + j) < memorySize; j++) {
+            if (memory[i + j] < 0) {
+                std::cout << "-" << memory[i + j];  // Use space for negative numbers, no plus sign
+            } else {
+                std::cout << "+" << std::setw(4) << std::setfill('0') << memory[i + j];
+            }
+        }
+        std::cout << "\n";
+    }
 }
 
 void output(std::string label, int width, int value, bool sign) {
