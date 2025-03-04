@@ -10,7 +10,7 @@ int main() {
 
     const std::vector<int> inputs{4, 5}; 
 
-    load_from_file(memory, "p1.txt"); 
+    load_from_file(memory, "/home/millersam/CompuTron/p1.txt"); 
 
     execute(memory, &accumulator, 
             &instructionCounter, &instructionRegister,
