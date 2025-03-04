@@ -50,44 +50,30 @@ Command opCodeToCommand(size_t opCode) {
     switch(opCode) {
         case 10: 
             return Command::read; 
-            break; 
         case 11:
             return Command::write; 
-            break; 
         case 20:
             return Command::load; 
-            break; 
         case 21:
             return Command::store; 
-            break; 
         case 30:
             return Command::add; 
-            break; 
         case 31:
             return Command::subtract; 
-            break; 
         case 32:
             return Command::divide; 
-            break; 
         case 33:
             return Command::multiply; 
-            break; 
         case 40: 
             return Command::branch; 
-            break; 
         case 41:
             return Command::branchNeg; 
-            break; 
         case 42:
             return Command::branchZero; 
-            break; 
         case 43:
             return Command::halt; 
-            break; 
         default:
-            // return Command::halt; 
-            return Command::error; 
-            break; 
+            throw std::runtime_error("Error:  Invalid opcode: " + std::to_string(opCode)); 
     } 
 }
 
@@ -190,9 +176,6 @@ void execute(std::array<int, memorySize>& memory,
             case Command::halt:
                 return; 
                 break; 
-            case Command::error:
-                throw std::runtime_error("Error: error operation, invalid_input"); 
-                break;  
             default:
             // any instruction required
                 throw std::runtime_error("Error: Unknown operation, invalid_input"); 
@@ -208,14 +191,12 @@ bool validWord(int word) {
         return false; 
     }
 
-    // int absWord = std::abs(word); 
-    
-    // size_t wordOpCode = absWord / 100; // divide to get the first two digits of the input word 
+    size_t wordOpCode = std::abs(word) / 100; // divide to get the first two digits of the input word 
     // size_t wordOperand = absWord % 100;  // remainder to get the last two digits of the input word
 
-    // if (std::find(validOpCodes.begin(), validOpCodes.end(), wordOpCode) == validOpCodes.end()) {
-    //     return false;
-    // }
+    if (std::find(validOpCodes.begin(), validOpCodes.end(), wordOpCode) == validOpCodes.end()) {
+        return false;
+    }
 
     return true; 
 }
