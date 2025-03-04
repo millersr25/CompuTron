@@ -73,7 +73,7 @@ Command opCodeToCommand(size_t opCode) {
         case 43:
             return Command::halt; 
         default:
-            throw std::runtime_error("Error:  Invalid opcode: " + std::to_string(opCode)); 
+            return Command::halt;  
     } 
 }
 

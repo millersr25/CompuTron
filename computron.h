@@ -29,7 +29,9 @@ enum class Command {
     halt = 43,
 }; 
 
-void load_from_file(std::array<int, memorySize>& memory, const std::string& filename); 
+void load_from_file(std::array<int, memorySize>& memory, const std::string& filename);
+
+Command opCodeToCommand(size_t opCode); 
 
 void execute(std::array<int, memorySize>& memory, int* const acPtr,
              size_t* const icPtr, int* const irPtr,
