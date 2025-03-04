@@ -86,7 +86,7 @@ Command opCodeToCommand(size_t opCode) {
             break; 
         default:
             // return Command::halt; 
-            throw std::runtime_error("Error: opCodeToCommand invalid_input"); 
+            return Command::error; 
             break; 
     } 
 }
@@ -190,6 +190,9 @@ void execute(std::array<int, memorySize>& memory,
             case Command::halt:
                 return; 
                 break; 
+            case Command::error:
+                throw std::runtime_error("Error: error operation, invalid_input"); 
+                break;  
             default:
             // any instruction required
                 throw std::runtime_error("Error: Unknown operation, invalid_input"); 

@@ -26,7 +26,10 @@ enum class Command {
     branch = 40, 
     branchNeg = 41, 
     branchZero = 42, 
-    halt = 43
+    halt = 43,
+
+    // Error command
+    error
 }; 
 
 void load_from_file(std::array<int, memorySize>& memory, const std::string& filename); 
